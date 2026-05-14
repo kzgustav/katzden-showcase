@@ -434,42 +434,65 @@ img{max-width:100%;display:block;height:auto}
   const LS_KEY='katzden_liked_v1';
   let liked={};
   try{ liked=JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch(e){}
+  const saveLiked=()=>localStorage.setItem(LS_KEY,JSON.stringify(liked));
+
+  const fetchVal=async(key)=>{
+    try{
+      const r=await fetch(`${API}/get/${NS}/${key}`);
+      if(!r.ok) return 0;
+      const d=await r.json();
+      return d.value||0;
+    }catch(e){ return 0; }
+  };
 
   const cards=document.querySelectorAll('.card');
   cards.forEach((card,idx)=>{
-    const key='banner-'+String(idx+1).padStart(2,'0');
+    const base='banner-'+String(idx+1).padStart(2,'0');
+    const upKey=base, downKey=base+'-down';
+
     const btn=document.createElement('button');
     btn.className='like';
     btn.setAttribute('aria-label','いいね');
-    btn.dataset.key=key;
     btn.innerHTML='<span class="like__heart">♥</span><span class="like__label">いいね</span><span class="like__count">…</span>';
     card.querySelector('.card__body').appendChild(btn);
+    const countEl=btn.querySelector('.like__count');
 
-    if(liked[key]) btn.classList.add('is-liked');
+    if(liked[base]) btn.classList.add('is-liked');
 
-    // 初期カウント取得
-    fetch(`${API}/get/${NS}/${key}`)
-      .then(r=>r.ok?r.json():{value:0})
-      .then(d=>{ btn.querySelector('.like__count').textContent=d.value||0; })
-      .catch(()=>{ btn.querySelector('.like__count').textContent='0'; });
+    // 初期カウント = up - down
+    Promise.all([fetchVal(upKey),fetchVal(downKey)]).then(([u,d])=>{
+      countEl.textContent=Math.max(0,u-d);
+    });
 
     btn.addEventListener('click',async ()=>{
-      if(liked[key] || btn.disabled) return;
+      if(btn.disabled) return;
       btn.disabled=true;
-      btn.classList.add('is-liked');
-      const countEl=btn.querySelector('.like__count');
+      const wasLiked=!!liked[base];
       const cur=parseInt(countEl.textContent,10)||0;
-      countEl.textContent=cur+1;
-      try{
-        const r=await fetch(`${API}/hit/${NS}/${key}`);
-        const d=await r.json();
-        if(d && typeof d.value==='number') countEl.textContent=d.value;
-        liked[key]=1;
-        localStorage.setItem(LS_KEY,JSON.stringify(liked));
-      }catch(e){
-        // 失敗ならロールバック
-        countEl.textContent=cur;
+
+      // 楽観更新
+      if(wasLiked){
         btn.classList.remove('is-liked');
+        countEl.textContent=Math.max(0,cur-1);
+      }else{
+        btn.classList.add('is-liked');
+        countEl.textContent=cur+1;
+      }
+
+      try{
+        const hitKey=wasLiked?downKey:upKey;
+        await fetch(`${API}/hit/${NS}/${hitKey}`);
+        liked[base]=wasLiked?0:1;
+        saveLiked();
+      }catch(e){
+        // ロールバック
+        if(wasLiked){
+          btn.classList.add('is-liked');
+        }else{
+          btn.classList.remove('is-liked');
+        }
+        countEl.textContent=cur;
+      }finally{
         btn.disabled=false;
       }
     });
