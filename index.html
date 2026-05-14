@@ -199,6 +199,55 @@ img{max-width:100%;display:block;height:auto}
   transform:translateY(-50%);
 }
 
+/* ===== Like button ===== */
+.like{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:16px;
+  padding:10px 18px;
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:999px;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:14px;
+  color:var(--ink);
+  transition:all .2s ease;
+  align-self:flex-start;
+  user-select:none;
+}
+.like:hover{
+  border-color:var(--accent);
+  transform:translateY(-1px);
+}
+.like__heart{
+  font-size:18px;
+  line-height:1;
+  transition:transform .3s ease;
+  color:#BBB;
+}
+.like.is-liked{
+  border-color:var(--accent);
+  background:#FFF5F5;
+}
+.like.is-liked .like__heart{
+  color:var(--accent);
+  animation:pop .4s ease;
+}
+.like__count{
+  font-variant-numeric:tabular-nums;
+  font-weight:500;
+  min-width:14px;
+  text-align:left;
+}
+.like[disabled]{cursor:default;opacity:0.85}
+@keyframes pop{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.4)}
+  100%{transform:scale(1)}
+}
+
 /* ===== Footer ===== */
 .footer{
   margin-top:64px;
@@ -378,5 +427,54 @@ img{max-width:100%;display:block;height:auto}
   <div class="footer__credit">DESIGNED FOR KATZDEN — OPEN COMPANY 2028</div>
 </footer>
 
+<script>
+(function(){
+  const API='https://abacus.jasoncameron.dev';
+  const NS='katzden-showcase-2028';
+  const LS_KEY='katzden_liked_v1';
+  let liked={};
+  try{ liked=JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch(e){}
+
+  const cards=document.querySelectorAll('.card');
+  cards.forEach((card,idx)=>{
+    const key='banner-'+String(idx+1).padStart(2,'0');
+    const btn=document.createElement('button');
+    btn.className='like';
+    btn.setAttribute('aria-label','いいね');
+    btn.dataset.key=key;
+    btn.innerHTML='<span class="like__heart">♥</span><span class="like__label">いいね</span><span class="like__count">…</span>';
+    card.querySelector('.card__body').appendChild(btn);
+
+    if(liked[key]) btn.classList.add('is-liked');
+
+    // 初期カウント取得
+    fetch(`${API}/get/${NS}/${key}`)
+      .then(r=>r.ok?r.json():{value:0})
+      .then(d=>{ btn.querySelector('.like__count').textContent=d.value||0; })
+      .catch(()=>{ btn.querySelector('.like__count').textContent='0'; });
+
+    btn.addEventListener('click',async ()=>{
+      if(liked[key] || btn.disabled) return;
+      btn.disabled=true;
+      btn.classList.add('is-liked');
+      const countEl=btn.querySelector('.like__count');
+      const cur=parseInt(countEl.textContent,10)||0;
+      countEl.textContent=cur+1;
+      try{
+        const r=await fetch(`${API}/hit/${NS}/${key}`);
+        const d=await r.json();
+        if(d && typeof d.value==='number') countEl.textContent=d.value;
+        liked[key]=1;
+        localStorage.setItem(LS_KEY,JSON.stringify(liked));
+      }catch(e){
+        // 失敗ならロールバック
+        countEl.textContent=cur;
+        btn.classList.remove('is-liked');
+        btn.disabled=false;
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
