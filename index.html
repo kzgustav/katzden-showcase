@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KATZDEN Open Company Copy Showcase</title>
+<meta name="description" content="カツデン株式会社 オープンカンパニー向けバナーコピー比較ショーケース。階段メーカーの魅力を、どの角度から学生に届けるか。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ECECEC;
+  --bg-alt:#DCDCDC;
+  --ink:#1A1A1A;
+  --ink-sub:#5E5E5E;
+  --accent:#D7202B;
+  --accent-ink:#1A1A1A;
+  --tag-bg:#F2F2F2;
+  --tag-ink:#3E3E3E;
+  --line:#C8C8C8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Noto Sans JP",sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.7;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;height:auto}
+
+/* ===== Header / Hero ===== */
+.hero{
+  padding:72px 24px 80px;
+  text-align:center;
+  background:#FFFFFF;
+  border-bottom:1px solid var(--line);
+}
+.hero__logo{
+  display:inline-block;
+  margin-bottom:40px;
+}
+.hero__logo img{
+  width:auto;
+  height:180px;
+  display:block;
+}
+@media(max-width:600px){
+  .hero__logo img{height:120px}
+}
+.hero__eyebrow{
+  font-family:"Inter",sans-serif;
+  font-size:12px;
+  letter-spacing:0.24em;
+  color:var(--accent-ink);
+  margin-bottom:24px;
+}
+.hero__eyebrow::before,.hero__eyebrow::after{
+  content:"";display:inline-block;width:24px;height:1px;
+  background:var(--accent);vertical-align:middle;margin:0 12px;
+}
+.hero__title{
+  font-family:"Noto Serif JP",serif;
+  font-weight:500;
+  font-size:clamp(28px,5vw,44px);
+  letter-spacing:0.04em;
+  line-height:1.4;
+  margin-bottom:24px;
+}
+.hero__sub{
+  color:var(--ink-sub);
+  font-size:15px;
+  max-width:640px;
+  margin:0 auto 12px;
+}
+.hero__note{
+  display:inline-block;
+  margin-top:32px;
+  padding:10px 20px;
+  background:var(--bg-alt);
+  border:1px solid var(--line);
+  font-size:13px;
+  color:var(--ink-sub);
+  border-radius:2px;
+}
+
+/* ===== Client ribbon ===== */
+.client{
+  text-align:center;
+  padding:32px 24px;
+  background:var(--bg-alt);
+  border-bottom:1px solid var(--line);
+}
+.client__label{
+  font-family:"Inter",sans-serif;
+  font-size:11px;
+  letter-spacing:0.3em;
+  color:var(--ink-sub);
+  margin-bottom:8px;
+}
+.client__name{
+  font-family:"Noto Serif JP",serif;
+  font-size:20px;
+  letter-spacing:0.1em;
+}
+
+/* ===== Gallery ===== */
+.gallery{
+  max-width:1180px;
+  margin:0 auto;
+  padding:64px 24px 32px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:56px;
+}
+@media(min-width:880px){
+  .gallery{grid-template-columns:1fr 1fr;gap:64px 48px;padding:80px 32px 48px;}
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:4px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(26,26,26,0.10);
+}
+.card__num{
+  font-family:"Inter",sans-serif;
+  font-size:11px;
+  letter-spacing:0.3em;
+  color:var(--accent);
+  padding:16px 24px 0;
+}
+.card__banner{
+  padding:16px 16px 0;
+}
+.card__banner img{
+  width:100%;
+  border-radius:2px;
+}
+.card__body{
+  padding:24px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.card__copy{
+  font-family:"Noto Serif JP",serif;
+  font-weight:500;
+  font-size:22px;
+  line-height:1.55;
+  letter-spacing:0.02em;
+}
+.card__pitch{
+  font-size:14px;
+  color:var(--ink-sub);
+  line-height:1.8;
+}
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:auto;
+  padding-top:8px;
+  border-top:1px dashed var(--line);
+}
+.tag{
+  display:inline-block;
+  font-size:12px;
+  letter-spacing:0.04em;
+  padding:5px 12px;
+  background:var(--tag-bg);
+  color:var(--tag-ink);
+  border-radius:999px;
+}
+.tag--primary{
+  background:var(--accent-ink);
+  color:#fff;
+  position:relative;
+  padding-left:22px;
+}
+.tag--primary::before{
+  content:"";
+  position:absolute;
+  left:10px;top:50%;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  transform:translateY(-50%);
+}
+
+/* ===== Footer ===== */
+.footer{
+  margin-top:64px;
+  padding:48px 24px;
+  text-align:center;
+  border-top:1px solid var(--line);
+  background:var(--bg-alt);
+}
+.footer__title{
+  font-family:"Noto Serif JP",serif;
+  font-size:18px;
+  margin-bottom:12px;
+  letter-spacing:0.08em;
+}
+.footer__text{
+  font-size:13px;
+  color:var(--ink-sub);
+  max-width:540px;
+  margin:0 auto;
+  line-height:1.9;
+}
+.footer__credit{
+  margin-top:24px;
+  font-family:"Inter",sans-serif;
+  font-size:11px;
+  letter-spacing:0.2em;
+  color:var(--ink-sub);
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <a class="hero__logo" href="#"><img src="assets/katzden-logo.png" alt="KATZDEN"></a>
+  <div class="hero__eyebrow">OPEN COMPANY COPY SHOWCASE</div>
+  <h1 class="hero__title">階段メーカーの魅力を、<br>どの角度から学生に届けるか。</h1>
+  <p class="hero__sub">9つの訴求軸で描いた、オープンカンパニー集客ビジュアル比較。</p>
+  <p class="hero__sub">「正解を1つに絞る前に、可能性を見渡す」ための提案セットです。</p>
+  <div class="hero__note">各バナー下のタグで「どの学生層に届けたいか」を比較できます</div>
+</header>
+
+<section class="gallery">
+
+  <article class="card">
+    <div class="card__num">01 / 09</div>
+    <div class="card__banner"><img src="banners/banner-01.png" alt="“かっこいい家”には、理由がある。"></div>
+    <div class="card__body">
+      <h2 class="card__copy">“かっこいい家”には、<br>理由がある。</h2>
+      <p class="card__pitch">情緒と説得力の両立。建築・住宅・インテリアに憧れる学生に、「カッコよさには裏付けがある」と伝える知性派ビジュアル。</p>
+      <div class="tags">
+        <span class="tag tag--primary">建築学生向け</span>
+        <span class="tag">住宅/インテリア</span>
+        <span class="tag">情緒訴求</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card__num">02 / 09</div>
+    <div class="card__banner"><img src="banners/banner-02.png" alt="家族の“真ん中”をつくる仕事。"></div>
+    <div class="card__body">
+      <h2 class="card__copy">家族の“真ん中”を<br>つくる仕事。</h2>
+      <p class="card__pitch">階段は「家族が交差する場所」。暮らし・生活者視点に響くウォームトーン。住宅志向や女性学生にも刺さりやすい。</p>
+      <div class="tags">
+        <span class="tag tag--primary">住宅/暮らし</span>
+        <span class="tag">情緒訴求</span>
+        <span class="tag">生活者視点</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card__num">03 / 09</div>
+    <div class="card__banner"><img src="banners/banner-03.png" alt="暮らしの景色は、階段から変わる。"></div>
+    <div class="card__body">
+      <h2 class="card__copy">暮らしの景色は、<br>階段から変わる。</h2>
+      <p class="card__pitch">ブランド感と情緒の最大公約数。写真も明るく、女性学生にも届きやすい。「階段＝景色を変えるプロダクト」という再定義。</p>
+      <div class="tags">
+        <span class="tag tag--primary">ブランド訴求</span>
+        <span class="tag">情緒訴求</span>
+        <span class="tag">女性学生</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card__num">04 / 09</div>
+    <div class="card__banner"><img src="banners/banner-04.png" alt="その階段で、空間を変える。"></div>
+    <div class="card__body">
+      <h2 class="card__copy">その階段で、<br>空間を変える。</h2>
+      <p class="card__pitch">直球・力強い・モノクロ寄りで建築のシャープさを表現。メーカー仕事体験を真っ向から訴求。意志のある学生に。</p>
+      <div class="tags">
+        <span class="tag tag--primary">メーカー志望</span>
+        <span class="tag">直球訴求</span>
+        <span class="tag">仕事体験感</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card__num">05 / 09</div>
+    <div class="card__banner"><img src="banners/banner-05.png" alt="『建築』を、『プロダクト』からハッピーにする。"></div>
+    <div class="card__body">
+      <h2 class="card__copy">『建築』を、<br>『プロダクト』から<br>ハッピーにする。</h2>
+      <p class="card__pitch">建築学生・ものづくり志向の学生にカジュアルに刺す陽性のトーン。「楽しく作る職場」が伝わるグループワーク描写。</p>
+      <div class="tags">
+        <span class="tag tag--primary">建築学生向け</span>
+        <span class="tag">ものづくり志向</span>
+        <span class="tag">楽しさ訴求</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card__num">06 / 09</div>
+    <div class="card__banner"><img src="banners/banner-06.png" alt="「我が家」に、主役をつくるプロダクトデザイン。"></div>
+    <div class="card__body">
+      <h2 class="card__copy">「我が家」に、<br>主役をつくる<br>プロダクトデザイン。</h2>
+      <p class="card__pitch">デザイン性とプロダクト開発の訴求。ディテール写真で職人性も担保。プロダクトデザイナー志望に刺さる構成。</p>
+      <div class="tags">
+        <span class="tag tag--primary">デザイン訴求</span>
+        <span class="tag">プロダクト開発</span>
+        <span class="tag">プロダクトデザイナー志望</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card__num">07 / 09</div>
+    <div class="card__banner"><img src="banners/banner-07.png" alt="階段ひとつで、空間はもっと面白くなる。"></div>
+    <div class="card__body">
+      <h2 class="card__copy">階段ひとつで、<br>空間はもっと面白くなる。</h2>
+      <p class="card__pitch">セミナー型イベント告知に振った1枚。日程・場所・特典まで明記、エントリー直結。「行ってみたい」を作る情報密度。</p>
+      <div class="tags">
+        <span class="tag tag--primary">セミナー型</span>
+        <span class="tag">情報密度高</span>
+        <span class="tag">エントリー直結</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card__num">08 / 09</div>
+    <div class="card__banner"><img src="banners/banner-08.png" alt="「かっこいい」を、「ベストセラー」にする仕事。"></div>
+    <div class="card__body">
+      <h2 class="card__copy">「かっこいい」を、<br>「ベストセラー」にする仕事。</h2>
+      <p class="card__pitch">企画・設計・プレゼン体験を訴求。営業・提案・マーケ寄りの学生に。「売れる仕組みを作る」面白さが軸。</p>
+      <div class="tags">
+        <span class="tag tag--primary">営業・提案寄り</span>
+        <span class="tag">企画/マーケ志望</span>
+        <span class="tag">プレゼン体験</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card__num">09 / 09</div>
+    <div class="card__banner"><img src="banners/banner-09.png" alt="ベストセラー誕生秘話。"></div>
+    <div class="card__body">
+      <h2 class="card__copy">ベストセラー誕生秘話。</h2>
+      <p class="card__pitch">オンラインセミナー専用。ヒット商品の裏側ストーリーで興味喚起。遠方学生・対面ハードル高い層へのリーチに有効。</p>
+      <div class="tags">
+        <span class="tag tag--primary">オンライン開催</span>
+        <span class="tag">ストーリー訴求</span>
+        <span class="tag">遠方学生</span>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<footer class="footer">
+  <h3 class="footer__title">どの軸で、どんな学生に出会うか。</h3>
+  <p class="footer__text">9案はそれぞれ異なる学生層へのアプローチです。<br>
+  「うちはこっちの学生に来てほしい」が決まれば、訴求軸は自ずと絞り込めます。<br>
+  ご意見・ご相談、お気軽にお寄せください。</p>
+  <div class="footer__credit">DESIGNED FOR KATZDEN — OPEN COMPANY 2026</div>
+</footer>
+
+</body>
+</html>
